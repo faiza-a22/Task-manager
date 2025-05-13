@@ -19,6 +19,9 @@ const TaskForm = ({task, onChange, onSubmit, isEdit}) => {
             className="w-full p-2 border rounded"
             required
           />
+            <label className="block text-sm font-medium mb-1">
+            Priority (1 = Low, 2 = Normal, 3 = High)
+            </label>
           <input
             type="number"
             name="priority"
@@ -26,6 +29,8 @@ const TaskForm = ({task, onChange, onSubmit, isEdit}) => {
             onChange={onChange}
             placeholder="Priority"
             className="w-full p-2 border rounded"
+            min="1"
+            max="3"
             required
           />
           <input
