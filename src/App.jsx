@@ -1,30 +1,21 @@
-import {useState} from 'react';
-import TaskForm from "./components/TaskForm";
-import TaskList from "./components/TaskList";
+import React from "react";
+import TasksPage from "./pages/TasksPage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AddTask from "./pages/AddTask";
+import EditTask from "./pages/EditTask";
 
-function App() {
-  const [tasks, setTasks] = useState([]);
-  const addTask = (newTask) => {
-   setTasks((prevTasks) => [...prevTasks, newTask]);
-  };
-  const deleteTask = (id) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-  }
-  
-  const toggleTask = (id) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
-  }
-  
+const App = () => {
   return (
-    <div className="max-w-xl mx-auto mt-10 p-4">
-    <h1 className="text-2xl font-bold text-center mb-4">Task Master</h1>
-      <TaskForm onAdd={addTask} />
-      <TaskList tasks={tasks} onDelete={deleteTask} onToggle={toggleTask} />
-    </div>
-  )
+    <Router>
+      <div className="font-inter min-h-screen bg-gray-100">
+        <Routes>
+          <Route path="/" element={<TasksPage />} />
+          <Route path="/add-task" element={<AddTask />} />
+          <Route path="/edit-task/:id" element={<EditTask />} />
+        </Routes>
+      </div>
+    </Router>
+  );
 };
-export default App
+
+export default App;
