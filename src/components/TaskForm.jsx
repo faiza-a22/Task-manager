@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 const TaskForm = ({task, onChange, onSubmit, isEdit}) => {
+  const navigate = useNavigate();
     return (
         <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded shadow">
         <form onSubmit={onSubmit} className="space-y-4">
@@ -52,7 +54,7 @@ const TaskForm = ({task, onChange, onSubmit, isEdit}) => {
           </div>
           <div className="flex justify-between">
             <button 
-            type="submit"
+            type="button"
             onClick={() => navigate("/")}
             className=" bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
               Clear
