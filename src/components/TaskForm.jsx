@@ -4,6 +4,7 @@ const TaskForm = ({task, onChange, onSubmit, isEdit}) => {
     return (
         <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded shadow">
         <form onSubmit={onSubmit} className="space-y-4">
+          <label>Title</label>
           <input
             type="text"
             name="title"
@@ -13,6 +14,7 @@ const TaskForm = ({task, onChange, onSubmit, isEdit}) => {
             className="w-full p-2 border rounded"
             required
           />
+          <label>Description</label>
           <textarea
             name="description"
             value={task.description}
@@ -21,20 +23,19 @@ const TaskForm = ({task, onChange, onSubmit, isEdit}) => {
             className="w-full p-2 border rounded"
             required
           />
-            <label className="block text-sm font-medium mb-1">
-            Priority (1 = Low, 2 = Normal, 3 = High)
-            </label>
-          <input
-            type="number"
-            name="priority"
-            value={task.priority}
-            onChange={onChange}
-            placeholder="Priority"
-            className="w-full p-2 border rounded"
-            min="1"
-            max="3"
-            required
-          />
+            <label>Priority</label>
+            <select
+              name="priority"
+              value={task.priority}
+              onChange={onChange}
+              className="w-full p-2 border rounded"
+              required
+            >
+              <option value = "1">Low</option>
+              <option value = "2">Normal</option>
+              <option value = "3">High</option>
+            </select>
+            <label>Deadline</label>
           <input
             type="datetime-local"
             name="deadline"
