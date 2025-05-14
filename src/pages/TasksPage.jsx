@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TaskTable from "../components/TaskTable";
 import axiosInstance from "../api/axiosInstance";
 import { Link } from "react-router-dom";
@@ -57,11 +57,11 @@ const TasksPage = () => {
         <div className="max-w-5xl mx-auto mt-10 p-6 bg-white rounded shadow">
             <div className="flex justify-between items-center mb-5">
                 <h1 className="text-3xl font-bold ">Tasks</h1>
-                <Link to="/add-task">
+                {/* <Link to="/add-task">
                     <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-1 rounded">
                         Add Task
                     </button>
-                </Link>
+                </Link> */}
             </div>
         
             
