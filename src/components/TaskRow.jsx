@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-function TaskRow({task, onDelete}) {
+function TaskRow({task, onDelete, index}) {
     return (
       <tr>
-        <td className="p-2 border">{task.id}</td>
+        {/* <td className="p-2 border">{task.id}</td> */}
+        <td className="p-2 border text-center">{index + 1}</td>
         <td className="p-2 border font-medium">{task.title}</td>
         <td className="p-2 border">{task.description}</td>
         <td className="p-2 border text-center">
@@ -28,9 +29,9 @@ function TaskRow({task, onDelete}) {
         <td className="flex gap-4">
           <Link to={`/edit-task/${task.id}`}>
             <button
-            className="bg-yellow-500 text-white ml-3 px-2 py-1 rounded hover:bg-yellow-600"
+            className="bg-yellow-500 text-white ml-3 px-4 py-1 rounded hover:bg-yellow-600"
             >
-              Update
+              Edit
             </button>
           </Link>
           <button

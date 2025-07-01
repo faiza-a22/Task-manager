@@ -3,16 +3,20 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AddTask from "./pages/AddTask";
 import EditTask from "./pages/EditTask";
 import SidebarLayout from "./components/SidebarLayout";
-
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import PrivateRoute from "./components/PrivateRoute";
 
 const App = () => {
   return (
     <Router>
       <div className="font-inter min-h-screen bg-gray-100">
         <Routes>
-          <Route path="/" element={<SidebarLayout><TasksPage /></SidebarLayout>} />
-          <Route path="/add-task" element={<SidebarLayout><AddTask /></SidebarLayout>} />
-          <Route path="/edit-task/:id" element={<SidebarLayout><EditTask /></SidebarLayout>} />
+          <Route path="/" element={<Login />} />
+          <Route path="/tasks" element={<PrivateRoute><SidebarLayout><TasksPage /></SidebarLayout></PrivateRoute>} />
+          <Route path="/add-task" element={<PrivateRoute><SidebarLayout><AddTask /></SidebarLayout></PrivateRoute>} />
+          <Route path="/dashboard" element={<PrivateRoute><SidebarLayout><Dashboard /></SidebarLayout></PrivateRoute>} />
+          <Route path="/edit-task/:id" element={<PrivateRoute><SidebarLayout><EditTask /></SidebarLayout></PrivateRoute>} />
         </Routes>
       </div>
     </Router>

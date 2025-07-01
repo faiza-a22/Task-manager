@@ -1,34 +1,35 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TaskTable from "../components/TaskTable";
 import axiosInstance from "../api/axiosInstance";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import useFetchTasks from "../hooks/useFetchTasks";
+import { Spin } from "antd";
+
 
 const TasksPage = () => {
-    
-    const [tasks, setTasks] = useState([]);
+    const {tasks,loading,setTasks} =  useFetchTasks();
     const [search, setSearch] = useState("");
-    const [loading, setLoading] = useState(true);
+    // eslint-disable-next-line no-unused-vars
     const [error, setError] = useState(null);
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+    const statusFilter = query.get("filter");
+    console.log("Filter from URL:", statusFilter);
 
 
-    useEffect(() => {
-        const fetchTasks = async () => {
-            try {
-                const response = await axiosInstance.get('/get-all-tasks');
-                setTasks(response.data.data);
-                setLoading(false);
-            } catch (err) {
-                setError("Failed to load tasks");
-                setLoading(false);
-            }
-        };
-        fetchTasks();
-    }, []);
-
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <div className="flex justify-center items-center h-40">
+          <Spin tip="Loading stats..." size="large" />
+        </div>;
     if (error) return <div>{error}</div>;
 
-    const filteredTasks = Array.isArray(tasks) ? tasks.filter((task) => {
+    const filteredTasks = Array.isArray(tasks) ? tasks
+    .filter((task) => {
+        if (statusFilter === "completed" && !task.isCompleted) return false;
+        if (statusFilter === "pending" && task.isCompleted) return false;
+        return true; // show all status
+      })
+    
+    .filter((task) => {
         const query = search.toLowerCase();
         const idMatch = task.id?.toLowerCase().includes(query);
         const titleMatch = task.title?.toLowerCase().includes(query);
@@ -52,16 +53,16 @@ const TasksPage = () => {
         console.error(err);
     }
     };
-
+    
     return (
         <div className="max-w-5xl mx-auto mt-10 p-6 bg-white rounded shadow">
             <div className="flex justify-between items-center mb-5">
                 <h1 className="text-3xl font-bold ">Tasks</h1>
-                {/* <Link to="/add-task">
+                <Link to="/add-task">
                     <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-1 rounded">
-                        Add Task
+                        Create Task
                     </button>
-                </Link> */}
+                </Link>
             </div>
         
             

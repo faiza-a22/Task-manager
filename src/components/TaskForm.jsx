@@ -1,73 +1,87 @@
 import { useNavigate } from "react-router-dom";
+
+import {
+  Form,
+  Input,
+  Select,
+  DatePicker,
+  Checkbox,
+  Button,
+  Typography,
+  Space,
+} from "antd";
+
+import dayjs from "dayjs";
+
+const { TextArea } = Input;
+const { Title } = Typography;
+
 const TaskForm = ({task, onChange, onSubmit, isEdit}) => {
   const navigate = useNavigate();
     return (
         <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded shadow">
-        <form onSubmit={onSubmit} className="space-y-4">
-          <label>Title</label>
-          <input
-            type="text"
-            name="title"
-            value={task.title}
-            onChange={onChange}
-            placeholder="Title"
-            className="w-full p-2 border rounded"
-            required
-          />
-          <label>Description</label>
-          <textarea
-            name="description"
-            value={task.description}
-            onChange={onChange}
-            placeholder="Description"
-            className="w-full p-2 border rounded"
-            required
-          />
-            <label>Priority</label>
-            <select
-              name="priority"
-              value={task.priority}
-              onChange={onChange}
-              className="w-full p-2 border rounded"
-              required
-            >
-              <option value = "1">Low</option>
-              <option value = "2">Normal</option>
-              <option value = "3">High</option>
-            </select>
-            <label>Deadline</label>
-          <input
-            type="datetime-local"
-            name="deadline"
-            value={task.deadline}
-            onChange={onChange}
-            className="w-full p-2 border rounded"
-            required
-          />
-          <div className="flex gap-2 items-center">
-            <input
-              type="checkbox"
-              name="isCompleted"
-              checked={task.isCompleted}
-              onChange={onChange}
-            />
-            <label>Completed</label>
-          </div>
-          <div className="flex justify-between">
-            <button 
-            type="button"
-            onClick={() => navigate("/")}
-            className=" bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
-              Clear
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-            >
-             {isEdit ? "Update Task" : "Add Task"}
-            </button>
-          </div>
-        </form>
+          <Title>{isEdit ? "Edit Task" : "Create Task"}</Title>
+          <Form onFinish={onSubmit} layout="vertical">
+            <Form.Item label="Title" required>
+              <Input
+                name="title"
+                value={task.title}
+                onChange={onChange}
+                placeholder="Title"
+              />
+            </Form.Item>
+            <Form.Item label="Description" required>
+              <TextArea
+                name="description"
+                value={task.description}
+                onChange={onChange}
+                placeholder="Description"
+                autoSize={{minRows: 3}}
+              />
+            </Form.Item>
+            <Form.Item label="Priority">
+              <Select
+                name="priority"
+                value={task.priority}
+                onChange={(value) => onChange({ target: { name: "priority", value } })}
+              >
+                <Select.Option value="1">Low</Select.Option>
+                <Select.Option value="2">Medium</Select.Option>
+                <Select.Option value="3">High</Select.Option>
+              </Select>
+            </Form.Item>
+            <Form.Item label="Deadline" required>
+              <DatePicker
+                showTime
+                format="YYYY-MM-DD HH:mm"
+                name="deadline"
+                value={task.deadline ? dayjs(task.deadline) : null}
+                onChange={(dateString) =>
+                  onChange({ target: { name: "deadline", value: dateString } })
+                }
+                className="w-full"
+              />
+            </Form.Item>
+            <Form.Item>
+              <Checkbox
+               name="checkbox"
+               checked={task.isCompleted}
+               onChange={(e) =>
+    onChange({
+      target: { name: "isCompleted", value: e.target.checked }
+    })
+  }
+              >
+                Completed
+              </Checkbox>
+            </Form.Item>
+            <Form.Item className="flex justify-between">
+              <Space >
+                <Button color="danger" variant="solid"  onClick={() => navigate("/tasks")}>Exit</Button>
+                <Button color="primary" variant="solid" htmlType="button"  onClick={onSubmit}>{isEdit ? "Edit Task" : "Create Task"}</Button>
+              </Space>
+            </Form.Item>
+          </Form>
       </div>
     )
 }

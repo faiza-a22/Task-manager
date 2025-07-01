@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: "https://taskmanagement-production-41fc.up.railway.app/api/Task",
+    baseURL: "https://test.xpresspayments.com/swagger/index.html",
     headers: {
         'Content-Type': 'application/json',
     },
