@@ -51,17 +51,7 @@ const Register = () => {
         {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
 
         <form onSubmit={handleRegister} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium">Username</label>
-            <input
-              type="text"
-              name="username"
-              value={form.username}
-              onChange={handleChange}
-              required
-              className="mt-1 w-full px-4 py-2 border rounded"
-            />
-          </div>
+
 
           <div>
             <label className="block text-sm font-medium">Email</label>
