@@ -1,5 +1,8 @@
-import axiosInstance from "./axiosInstance";
+import axios from "axios";
 
 export const registerUser = async (userInfo) => {
-  return await axiosInstance.post("/register", userInfo);
+  return await axios.post(
+    "https://test.xpresspayments.com:9000/register",
+    userInfo
+  );
 };
