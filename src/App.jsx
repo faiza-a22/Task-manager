@@ -4,6 +4,7 @@ import AddTask from "./pages/AddTask";
 import EditTask from "./pages/EditTask";
 import SidebarLayout from "./components/SidebarLayout";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 
