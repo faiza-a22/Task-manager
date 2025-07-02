@@ -24,7 +24,7 @@ const AddTask = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        await axiosInstance.post("/create-task", {
+        await axiosInstance.post("/DailyTask", {
           ...task,
           priority: Number(task.priority),
           deadline: new Date(task.deadline).toISOString(),
