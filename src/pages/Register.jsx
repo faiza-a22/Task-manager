@@ -5,7 +5,6 @@ import { registerUser } from "../api/authService";
 const Register = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
-    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -28,10 +27,8 @@ const Register = () => {
 
     try {
       await registerUser({
-        username: form.username,
         email: form.email,
         password: form.password,
-        confirmPassword: form.confirmPassword,
       });
       navigate("/login");
 
