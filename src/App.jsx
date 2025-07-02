@@ -12,7 +12,8 @@ const App = () => {
     <Router>
       <div className="font-inter min-h-screen bg-gray-100">
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/tasks" element={<PrivateRoute><SidebarLayout><TasksPage /></SidebarLayout></PrivateRoute>} />
           <Route path="/add-task" element={<PrivateRoute><SidebarLayout><AddTask /></SidebarLayout></PrivateRoute>} />
           <Route path="/dashboard" element={<PrivateRoute><SidebarLayout><Dashboard /></SidebarLayout></PrivateRoute>} />

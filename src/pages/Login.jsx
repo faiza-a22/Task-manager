@@ -68,10 +68,13 @@ const Login = () => {
           
         </form>
 
-        {/* Placeholder for future Google login */}
-        <div className="mt-6 text-center text-sm text-gray-500">
-          or login with Google
+        <div className="mt-4 text-center text-sm">
+          Don't have an account yet?{" "}
+          <Link to="/" className="text-blue-500 hover:underline">
+            Register
+          </Link>
         </div>
+
       </div>
     </div>
   );
