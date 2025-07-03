@@ -76,6 +76,17 @@ const Register = () => {
             />
           </div>
 
+          <div>
+            <label className="block text-sm font-medium">Confirm Password</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={form.confirmPassword}
+              onChange={handleChange}
+              required
+              className="mt-1 w-full px-4 py-2 border rounded"
+            />
+          </div>
 
           <button
             type="submit"
