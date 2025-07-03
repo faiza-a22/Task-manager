@@ -7,6 +7,7 @@ const Register = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
+    confirmPassword: "",
   });
   const [error, setError] = useState("");
 
@@ -19,10 +20,9 @@ const Register = () => {
     e.preventDefault();
     setError("");
 
-
-    // if (form.password !== form.confirmPassword) {
-    //   return setError("Passwords do not match.");
-    // }
+    if (form.password !== form.confirmPassword) {
+      return setError("Passwords do not match.");
+    }
 
     try {
       await registerUser({
