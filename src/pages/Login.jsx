@@ -12,15 +12,18 @@ const Login = () => {
     };
     const handleLogin = async (e) => {
         e.preventDefault();
-        setError("");
 
     try {
       const res = await loginUser(credentials);
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
+
+      const token = res.data.token;
+      if (token) {
+        localStorage.setItem("token", token);
+        navigate("/dashboard");
+      } else {
+        setError("Login failed. Please try again.");
       }
-      localStorage.setItem("user", JSON.stringify(res.data));
-      navigate("/dashboard");
+     
     } catch (err) {
       console.error("Login error:", err.response?.data || err.message);
       setError("Invalid email or password.");
