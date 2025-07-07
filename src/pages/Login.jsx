@@ -21,7 +21,7 @@ const Login = () => {
 
         console.log("Login response full:", res.data);
 
-        const token = res.data.token;
+        const token = res.data.accessToken;
         console.log("Received token:", token);
         if (token) {
           localStorage.setItem("token", token);
