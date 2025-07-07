@@ -9,7 +9,7 @@ const useFetchTasks = () => {
         const fetchTasks = async () => {
             try {
                 const response = await axiosInstance.get("/api/DailyTask");
-                setTasks(response.data.data || []);
+                setTasks(response.data || []);
             } catch (err) {
                 console.error("Error fetching tasks:", err);
             } finally {

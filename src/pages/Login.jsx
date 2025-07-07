@@ -19,8 +19,6 @@ const Login = () => {
         password: credentials.password,
       });
 
-        console.log("Login response full:", res);
-
         const token = res.data.accessToken;
         console.log("Received token:", token);
         if (token) {
