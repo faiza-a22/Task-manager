@@ -1,24 +1,14 @@
 import axios from "axios";
 
-const axiosInstance = axios.create({
-    baseURL: "https://test.xpresspayments.com:9000/api",
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
+const token = localStorage.getItem("token");
 
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-
-    return config;
+export const axiosInstance = axios.create({
+  baseURL: "https://test.xpresspayments.com:9000",
+  headers: {
+    Authorization: token ? `Bearer ${token}` : "",
+    "Content-Type": "application/json",
   },
-  (error) => Promise.reject(error)
-);
+});
 
 
 export default axiosInstance;

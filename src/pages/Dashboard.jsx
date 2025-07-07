@@ -3,7 +3,7 @@ import useFetchTasks from '../hooks/useFetchTasks';
 import { useNavigate } from "react-router-dom";
 import { Spin, Typography, Card, Divider } from "antd";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 function Dashboard () {
     const navigate = useNavigate();
@@ -35,7 +35,6 @@ function Dashboard () {
     }
   });
 
-  // Convert to array format for the chart
   return Object.entries(monthlyCount).map(([month, count]) => ({
     month,
     tasks: count,

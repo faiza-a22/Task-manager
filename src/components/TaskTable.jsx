@@ -1,7 +1,6 @@
-import TaskRow from './TaskRow';
 import { Table } from 'antd';
 
-function TaskTable ({tasks, onDelete}) {
+function TaskTable ({tasks}) {
   const columns = [
     {
       title: "S/N",

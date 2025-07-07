@@ -8,7 +8,7 @@ const useFetchTasks = () => {
     useEffect(() => {
         const fetchTasks = async () => {
             try {
-                const response = await axiosInstance.get("/DailyTask");
+                const response = await axiosInstance.get("/api/DailyTask");
                 setTasks(response.data.data || []);
             } catch (err) {
                 console.error("Error fetching tasks:", err);

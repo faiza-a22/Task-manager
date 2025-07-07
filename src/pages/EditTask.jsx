@@ -11,7 +11,7 @@ function EditTask() {
   useEffect(() => {
     const fetchTask = async () => {
       try {
-        const response = await axiosInstance.get(`/DailyTask/${id}`);
+        const response = await axiosInstance.get(`/api/DailyTask/${id}`);
         const t = response.data.data;
 
         const formattedDeadline = new Date(t.deadline).toISOString().slice(0, 16);
@@ -40,7 +40,7 @@ function EditTask() {
     e.preventDefault();
 
     try {
-      await axiosInstance.post(`/DailyTask/${id}`, {
+      await axiosInstance.post(`/api/DailyTask/${id}`, {
         ...task,
         priority: Number(task.priority),
         deadline: new Date(task.deadline).toISOString(),

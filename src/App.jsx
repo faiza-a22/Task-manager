@@ -7,9 +7,12 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
+    <>
     <Router>
       <div className="font-inter min-h-screen bg-gray-100">
         <Routes>
@@ -22,7 +25,10 @@ const App = () => {
         </Routes>
       </div>
     </Router>
+    <ToastContainer />
+    </>
   );
 };
 
 export default App;
+

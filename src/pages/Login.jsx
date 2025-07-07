@@ -1,6 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
-import { loginUser } from "../api/authService";
+import axios from "axios";
 const Login = () => {
     const navigate = useNavigate();
     const [credentials, setCredentials] = useState({email: "", password: ""});
@@ -14,18 +14,21 @@ const Login = () => {
         e.preventDefault();
 
     try {
-      const res = await loginUser(credentials);
+      const res = await axios.post("https://test.xpresspayments.com:9000/login", {
+      email: credentials.email,
+      password: credentials.password,
+    });
 
       const token = res.data.token;
       if (token) {
         localStorage.setItem("token", token);
         navigate("/dashboard");
       } else {
-        setError("Login failed. Please try again.");
+        setError("Login failed: no token received");
       }
      
     } catch (err) {
-      console.error("Login error:", err.response?.data || err.message);
+      console.error("Login error:", err);
       setError("Invalid email or password.");
     }
   };
