@@ -12,6 +12,7 @@ function Dashboard () {
       navigate(`/tasks?filter=${filter}`, { replace: false });
     };
     const {tasks,loading} =  useFetchTasks();
+    console.log("Tasks value:", tasks);
     const total = tasks.length;
     const completed = tasks.filter((task) => task.isCompleted).length;
     const notCompleted = total - completed;
