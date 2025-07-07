@@ -19,7 +19,10 @@ const Login = () => {
       password: credentials.password,
     });
 
+      console.log("Login response:", res);
+
       const token = res.data.token;
+      console.log("Received token:", token);
       if (token) {
         localStorage.setItem("token", token);
         navigate("/dashboard");
