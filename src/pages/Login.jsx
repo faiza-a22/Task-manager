@@ -11,86 +11,86 @@ const Login = () => {
         setCredentials((prev) => ({...prev, [name]: value}));
     };
     const handleLogin = async (e) => {
-        e.preventDefault();
+      e.preventDefault();
+        
+      try {
+        const res = await axios.post("https://test.xpresspayments.com:9000/login", {
+        email: credentials.email,
+        password: credentials.password,
+      });
 
-    try {
-      const res = await axios.post("https://test.xpresspayments.com:9000/login", {
-      email: credentials.email,
-      password: credentials.password,
-    });
+        console.log("Login response full:", res.data);
 
-      console.log("Login response:", res);
-
-      const token = res.data.token;
-      console.log("Received token:", token);
-      if (token) {
-        localStorage.setItem("token", token);
-        navigate("/dashboard");
-      } else {
-        setError("Login failed: no token received");
+        const token = res.data.token;
+        console.log("Received token:", token);
+        if (token) {
+          localStorage.setItem("token", token);
+          navigate("/dashboard");
+        } else {
+          setError("Login failed: no token received");
+        }
+      
+      } catch (err) {
+        console.error("Login error:", err);
+        setError("Invalid email or password.");
       }
-     
-    } catch (err) {
-      console.error("Login error:", err);
-      setError("Invalid email or password.");
-    }
-  };
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="max-w-md w-full bg-white p-8 rounded shadow">
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign in to Task Master</h2>
-        {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
+    };
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+        <div className="max-w-md w-full bg-white p-8 rounded shadow">
+          <h2 className="text-2xl font-bold mb-6 text-center">Sign in to Task Master</h2>
+          {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
 
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={credentials.email}
-              onChange={handleChange}
-              placeholder="Enter email"
-              className="mt-1 w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={credentials.email}
+                onChange={handleChange}
+                placeholder="Enter email"
+                className="mt-1 w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={credentials.password}
+                onChange={handleChange}
+                placeholder="Enter password"
+                className="mt-1 w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+              <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 "
+              >
+                  Login
+              </button>
+            
+          </form>
+
+          <div className="mt-4 text-center text-sm">
+            Don't have an account yet?{" "}
+            <Link to="/" className="text-blue-500 hover:underline">
+              Register
+            </Link>
           </div>
 
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={credentials.password}
-              onChange={handleChange}
-              placeholder="Enter password"
-              className="mt-1 w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
-            <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 "
-            >
-                Login
-            </button>
-          
-        </form>
-
-        <div className="mt-4 text-center text-sm">
-          Don't have an account yet?{" "}
-          <Link to="/" className="text-blue-500 hover:underline">
-            Register
-          </Link>
         </div>
-
       </div>
-    </div>
   );
 };
 
