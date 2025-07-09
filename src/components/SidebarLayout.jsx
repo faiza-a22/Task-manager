@@ -17,8 +17,7 @@ function SidebarLayout({children}) {
                         {key:'dashboard',label: <Link to="/dashboard" >Dashboard</Link>,icon: <DashboardOutlined />},
                         {key:'manage tasks', label: <Link to="/tasks" >Manage Tasks</Link> , icon:<UnorderedListOutlined/>},
                         {key: 'settings', label: 'Settings', icon:<SettingOutlined />},
-                        {key: 'logout',icon: <LogoutOutlined />,label:<Link to="/logout" >Logout</Link>,
-                        onClick: () => {localStorage.removeItem("user");window.location.href = "/";}}
+                        {key: 'logout',icon: <LogoutOutlined />,label:<Link to="/logout" >Logout</Link>}
                     ];
 
     return (
