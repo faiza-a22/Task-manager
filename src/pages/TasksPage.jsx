@@ -4,6 +4,7 @@ import axiosInstance from "../api/axiosInstance";
 import { Link, useLocation } from "react-router-dom";
 import useFetchTasks from "../hooks/useFetchTasks";
 import { Spin } from "antd";
+import { toast } from 'react-toastify';
 
 
 const TasksPage = () => {
@@ -46,10 +47,18 @@ const TasksPage = () => {
 
     const handleDelete = async (id) => {
     try {
-        await axiosInstance.delete(`/delete-task/${id}`);
+        await axiosInstance.delete(`/api/DailyTask/${id}`);
         setTasks((prev) => prev.filter((task) => task.id !== id));
     } catch (err) {
-        alert("Error deleting task");
+        toast.error("Failed to delete task", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
         console.error(err);
     }
     };

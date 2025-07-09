@@ -1,6 +1,7 @@
-import { Table } from 'antd';
+import { Table, Popconfirm } from 'antd';
 
-function TaskTable ({tasks}) {
+
+function TaskTable ({tasks, onDelete}) {
   const columns = [
     {
       title: "S/N",
@@ -53,13 +54,31 @@ function TaskTable ({tasks}) {
           hour12: true,
         }),
     },
-    // {
-    //   title:"Actions",
-    //   key:"actions",
-    //   render: (_, record) => <TaskRow task={record} onDelete={onDelete} />,
-    // },
-  ]
-  
+    {
+      title: "Actions",
+      render: (_, task) => (
+        <div className="flex gap-2">
+          <button 
+            className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+          >
+            Edit
+          </button>
+
+          <Popconfirm
+            title="Are you sure you want to delete this task?"
+            onConfirm={() => onDelete(task.id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+              Delete
+            </button>
+          </Popconfirm>
+        </div>
+      ),
+    },
+  ];
+
   return (
     <div className='overflow-x-auto w-full'>
       <Table

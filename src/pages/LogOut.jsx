@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 const LogoutPage = () => {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -11,6 +12,15 @@ const LogoutPage = () => {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       navigate("/login");
+      toast.success('Logout successful!', {
+                  position: "top-right",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
       setIsLoggingOut(false);
     }, 1000);
   };
