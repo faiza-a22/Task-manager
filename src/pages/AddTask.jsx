@@ -40,7 +40,7 @@ const AddTask = () => {
           draggable: true,
           progress: undefined,
         });
-        navigate("/");
+        navigate("/dashboard");
       } catch (error) {
         console.error("Error creating task:", error);
         toast.error("Failed to create task", {

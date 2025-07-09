@@ -1,6 +1,8 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { toast } from 'react-toastify';
+
 const Login = () => {
     const navigate = useNavigate();
     const [credentials, setCredentials] = useState({email: "", password: ""});
@@ -23,14 +25,33 @@ const Login = () => {
         console.log("Received token:", token);
         if (token) {
           localStorage.setItem("token", token);
+          localStorage.setItem("user", JSON.stringify({ email: credentials.email }));
+          toast.success('Task created successfully!', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
           navigate("/dashboard");
         } else {
+
           setError("Login failed: no token received");
         }
       
       } catch (err) {
         console.error("Login error:", err);
-        setError("Invalid email or password.");
+        toast.error("Invalid email or password. Please try again.", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     };
     return (

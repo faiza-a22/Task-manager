@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { registerUser } from "../api/authService"; 
+import { toast } from 'react-toastify';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -30,6 +31,15 @@ const Register = () => {
         password: form.password,
       });
       navigate("/login");
+      toast.success('Registration successful! Please login.', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
 
       // Option 2: auto-login (needs login logic)
     } catch (err) {
@@ -37,7 +47,15 @@ const Register = () => {
       if (err.response?.data?.message) {
         setError(err.response.data.message);
       } else {
-        setError("Registration failed. Try again.");
+        toast.error("Registration failed. Please try again.", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     }
   };
