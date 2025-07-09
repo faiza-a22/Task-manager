@@ -1,7 +1,6 @@
-import { Table, Popconfirm } from 'antd';
+import { Table, Popconfirm } from "antd";
 
-
-function TaskTable ({tasks, onDelete}) {
+function TaskTable({ tasks, onDelete }) {
   const columns = [
     {
       title: "S/N",
@@ -12,24 +11,26 @@ function TaskTable ({tasks, onDelete}) {
     {
       title: "Title",
       dataIndex: "title",
-      key: "title"
+      key: "title",
     },
     {
       title: "Description",
       dataIndex: "description",
-      key: "description"
+      key: "description",
     },
     {
       title: "Status",
       dataIndex: "isCompleted",
       key: "isCompleted",
       render: (value) => (
-        <span className="capitalize">{value ? "Completed" : "Not Completed"}</span>
+        <span className="capitalize">
+          {value ? "Completed" : "Not Completed"}
+        </span>
       ),
     },
     {
       title: "Priority",
-      dataIndex:"priority",
+      dataIndex: "priority",
       key: "priority",
       render: (priority) =>
         priority === 1
@@ -42,7 +43,7 @@ function TaskTable ({tasks, onDelete}) {
     },
     {
       title: "Deadline",
-      dataIndex:"deadline",
+      dataIndex: "deadline",
       key: "deadline",
       render: (value) =>
         new Date(value).toLocaleString("en-US", {
@@ -58,11 +59,11 @@ function TaskTable ({tasks, onDelete}) {
       title: "Actions",
       render: (_, task) => (
         <div className="flex gap-2">
-          <button 
-            className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-          >
-            Edit
-          </button>
+          <Link to={`/edit-task/${task.id}`}>
+            <Button type="primary" className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">
+              Edit
+            </Button>
+          </Link>
 
           <Popconfirm
             title="Are you sure you want to delete this task?"
@@ -80,7 +81,7 @@ function TaskTable ({tasks, onDelete}) {
   ];
 
   return (
-    <div className='overflow-x-auto w-full'>
+    <div className="overflow-x-auto w-full">
       <Table
         dataSource={tasks}
         columns={columns}
@@ -88,7 +89,7 @@ function TaskTable ({tasks, onDelete}) {
         pagination={{ pageSize: 5 }}
       />
     </div>
-    
+
     // <div className="overflow-x-auto w-full">
     //   <table className="min-w-full">
     //     <thead>
@@ -109,7 +110,7 @@ function TaskTable ({tasks, onDelete}) {
     //     </tbody>
     //   </table>
     // </div>
-  )
+  );
 }
 
 export default TaskTable;
