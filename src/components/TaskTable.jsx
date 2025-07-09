@@ -1,6 +1,5 @@
-import { Table, Popconfirm } from "antd";
+import { Table, Popconfirm, Button } from "antd";
 import { Link } from "react-router-dom";
-import Button from "antd";
 
 function TaskTable({ tasks, onDelete }) {
   const columns = [
