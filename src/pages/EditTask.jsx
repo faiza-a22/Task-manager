@@ -70,7 +70,7 @@ function EditTask() {
         draggable: true,
         progress: undefined,
       });
-      navigate("/");
+      navigate("/tasks");
     } catch (err) {
       console.error("Error updating task:", err);
       toast.error("Update failed.", {
