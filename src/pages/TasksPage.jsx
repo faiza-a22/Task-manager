@@ -15,7 +15,6 @@ const TasksPage = () => {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
     const statusFilter = query.get("filter");
-    console.log("Filter from URL:", statusFilter);
 
 
     if (loading) return <div className="flex justify-center items-center h-40">
