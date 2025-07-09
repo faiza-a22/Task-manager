@@ -22,7 +22,7 @@ const App = () => {
           <Route path="/logout" element={<PrivateRoute><LogoutPage /></PrivateRoute>} />
           <Route path="/tasks" element={<PrivateRoute><SidebarLayout><TasksPage /></SidebarLayout></PrivateRoute>} />
           <Route path="/add-task" element={<PrivateRoute><SidebarLayout><AddTask /></SidebarLayout></PrivateRoute>} />
-          <Route path="/dashboard" element={<SidebarLayout><Dashboard /></SidebarLayout>} />
+          <Route path="/dashboard" element={<PrivateRoute><SidebarLayout><Dashboard /></SidebarLayout></PrivateRoute>} />
           <Route path="/edit-task/:id" element={<PrivateRoute><SidebarLayout><EditTask /></SidebarLayout></PrivateRoute>} />
         </Routes>
       </div>
