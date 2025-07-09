@@ -4,9 +4,19 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 
 const Login = () => {
+  const toastConfig = {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  };
     const navigate = useNavigate();
     const [credentials, setCredentials] = useState({email: "", password: ""});
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -14,6 +24,15 @@ const Login = () => {
     };
     const handleLogin = async (e) => {
       e.preventDefault();
+      setLoading(true);
+      if (!credentials.email || !credentials.password) {
+            return toast.error("Please fill in all fields", toastConfig);
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(credentials.email)) {
+            return toast.error("Please enter a valid email address", toastConfig);
+        }
+      setError("");
         
       try {
         const res = await axios.post("https://test.xpresspayments.com:9000/login", {
@@ -41,15 +60,10 @@ const Login = () => {
       
       } catch (err) {
         console.error("Login error:", err);
-        toast.error("Invalid email or password. Please try again.", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        const errorMessage = err.response?.data?.message || "Invalid email or password. Please try again.";
+        toast.error(errorMessage, toastConfig);
+      } finally {
+        setLoading(false); 
       }
     };
     return (
@@ -92,9 +106,10 @@ const Login = () => {
             </div>
               <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 "
+              disabled={loading || !credentials.email || !credentials.password}
+              className={`w-full ${loading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'} text-white py-2 rounded transition flex justify-center items-center`}
               >
-                  Login
+                  {loading ? 'Processing...' : 'Login'}
               </button>
             
           </form>

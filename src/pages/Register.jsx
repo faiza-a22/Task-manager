@@ -1,28 +1,45 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { registerUser } from "../api/authService"; 
-import { toast } from 'react-toastify';
+import { registerUser } from "../api/authService";
+import { toast } from "react-toastify";
 
 const Register = () => {
+  const toastConfig = {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  };
   const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setError(""); // Clear error on input change
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError("");
 
+    if (form.password.length < 8) {
+      return toast.error("Password must be at least 8 characters", toastConfig);
+    }
+
     if (form.password !== form.confirmPassword) {
-      return setError("Passwords do not match.");
+      setLoading(false);
+      return toast.error("Passwords do not match", toastConfig);
     }
 
     try {
@@ -31,32 +48,20 @@ const Register = () => {
         password: form.password,
       });
       navigate("/login");
-      toast.success('Registration successful! Please login.', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-
-      // Option 2: auto-login (needs login logic)
+      toast.success("Registration successful! Please login.", toastConfig);
     } catch (err) {
+      if (err.response?.status === 409) {
+        // 409 Conflict is common for duplicate entries
+        toast.error("Email already exists. Please use a different email.", toastConfig);
+      }
       console.error("Registration error:", err);
       if (err.response?.data?.message) {
         setError(err.response.data.message);
       } else {
-        toast.error("Registration failed. Please try again.", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.error("Registration failed. Please try again.", toastConfig);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -68,8 +73,6 @@ const Register = () => {
         {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
 
         <form onSubmit={handleRegister} className="space-y-4">
-
-
           <div>
             <label className="block text-sm font-medium">Email</label>
             <input
@@ -95,7 +98,9 @@ const Register = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Confirm Password</label>
+            <label className="block text-sm font-medium">
+              Confirm Password
+            </label>
             <input
               type="password"
               name="confirmPassword"
@@ -107,15 +112,21 @@ const Register = () => {
           </div>
 
           <button
+            disabled={loading}
             type="submit"
-            className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+            className={`w-full ${
+              loading ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"
+            } text-white py-2 rounded transition`}
           >
-            Register
+            {loading ? "Processing..." : "Register"}
           </button>
         </form>
 
         <div className="mt-4 text-center text-sm">
-          Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Login</Link>
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-500 hover:underline">
+            Login
+          </Link>
         </div>
       </div>
     </div>
