@@ -56,7 +56,7 @@ function EditTask() {
     e.preventDefault();
 
     try {
-      await axiosInstance.post(`/api/DailyTask/${id}`, {
+      await axiosInstance.put(`/api/DailyTask/${id}`, {
         ...task,
         priority: Number(task.priority),
         deadline: new Date(task.deadline).toISOString(),
