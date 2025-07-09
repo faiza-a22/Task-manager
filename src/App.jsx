@@ -18,6 +18,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<LogoutPage />} />
           <Route path="/tasks" element={<PrivateRoute><SidebarLayout><TasksPage /></SidebarLayout></PrivateRoute>} />
           <Route path="/add-task" element={<PrivateRoute><SidebarLayout><AddTask /></SidebarLayout></PrivateRoute>} />
           <Route path="/dashboard" element={<PrivateRoute><SidebarLayout><Dashboard /></SidebarLayout></PrivateRoute>} />
