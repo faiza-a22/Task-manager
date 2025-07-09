@@ -5,6 +5,7 @@ import EditTask from "./pages/EditTask";
 import SidebarLayout from "./components/SidebarLayout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import LogoutPage from "./pages/LogOut";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import { ToastContainer } from 'react-toastify';
