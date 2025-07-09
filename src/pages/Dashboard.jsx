@@ -85,7 +85,7 @@ const chartData = getTasksPerMonth(tasks);
             <Divider className="mb-4"/>
             <figure>
               <ResponsiveContainer width="100%" height={300} >
-                <BarChart data={chartData} layout="vertical" margin={{ top: 20, right: 30, left: 30, bottom: 5 }}>
+                <BarChart data={chartData} margin={{ top: 20, right: 30, left: 30, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <YAxis type="category" dataKey="month" />
                   <XAxis type="number" allowDecimals={false}  />
